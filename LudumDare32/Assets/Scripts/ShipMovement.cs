@@ -6,6 +6,9 @@ public class ShipMovement : MonoBehaviour {
     Vector3 movementForce = Vector3.zero;
 
     [SerializeField]
+    CameraFollow cameraFollow;
+
+    [SerializeField]
     GameObject modelPivot;
 
     [SerializeField]
@@ -43,12 +46,14 @@ public class ShipMovement : MonoBehaviour {
         movementForce.z = iw.Accelerate;
 
         Leap();
+        cameraFollow.SetVelocityPercentage(movementForce);
 
         movementForce.x *= maxForces.x;
         movementForce.y *= maxForces.y;
         movementForce.z *= maxForces.z;
 
-        rb.AddForce(movementForce);        
+        rb.AddForce(movementForce);
+
 	}
 
     /// <summary>
