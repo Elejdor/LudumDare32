@@ -11,19 +11,20 @@ public class InputWrapper : MonoBehaviour {
 	{
 		get
 		{
-			return Instance;
+			return instance;
 		}
 	}
 	
 	void Awake()
 	{
-			instance = this;
+		instance = this;
+		horizontalAxis = 0;
+		verticalAxis = 0;
 	}
 	
 	// Use this for initialization
 	void Start () {
-		horizontalAxis = 0;
-		verticalAxis = 0;
+		
 	}
 	
 	// Update is called once per frame

@@ -4,8 +4,11 @@ using System.Collections;
 public class ShipMovement : MonoBehaviour {
 
 	Vector3 forceDirection = Vector3.zero;
+	
+	[SerializeField]
 	float maxForce;
-	float desiredForce;
+	
+	
 	float horizontalForce;
 	float verticalForce;
 	InputWrapper iw;
@@ -21,7 +24,7 @@ public class ShipMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		HandleMovment();
 	}
 	
 	void HandleMovment()
@@ -31,8 +34,9 @@ public class ShipMovement : MonoBehaviour {
 		
 		forceDirection.x = horizontalForce;
 		forceDirection.y = verticalForce;
+		Debug.Log(verticalForce);
 		forceDirection.Normalize();
 		
-		rb.AddForce(forceDirection * (verticalForce + horizontalForce));
+		rb.AddForce(forceDirection * (Mathf.Abs(verticalForce) + Mathf.Abs(horizontalForce)) * maxForce);
 	}
 }
