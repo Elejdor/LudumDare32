@@ -41,7 +41,7 @@ public class Explosion : MonoBehaviour {
         yield return new WaitForEndOfFrame();
         for (int i = 0; i < transform.childCount; i++)
         {            
-            transform.GetChild(i).GetComponent<Rigidbody>().AddExplosionForce(0.008f, position, 6.0f, 5.0f);
+            transform.GetChild(0).GetChild(i).GetComponent<Rigidbody>().AddExplosionForce(0.008f, position, 6.0f, 5.0f);
         }
     }
 }
