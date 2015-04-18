@@ -5,8 +5,8 @@ using Windows.Kinect;
 
 public class BodyManager : MonoBehaviour {
 
-    private BodyManager _instance;
-    public BodyManager intance { get { return _instance; } protected set { _instance = value; } }
+    private static BodyManager _instance;
+    public static BodyManager intance { get { return _instance; } protected set { _instance = value; } }
 
     private KinectSensor _sensor;
     private BodyFrameReader _bodyFrameReader;
