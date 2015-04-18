@@ -18,6 +18,7 @@ public class GenerateVoxelBlock : MonoBehaviour {
 
     [SerializeField]
     GameObject prefab;
+    public Plane[] planes;
 
 	// Use this for initialization
 	void Start () {
@@ -56,6 +57,6 @@ public class GenerateVoxelBlock : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	    
+        planes = GeometryUtility.CalculateFrustumPlanes(Camera.main);
 	}
 }

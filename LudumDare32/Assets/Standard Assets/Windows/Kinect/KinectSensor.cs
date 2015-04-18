@@ -1,6 +1,7 @@
 using RootSystem = System;
 using System.Linq;
 using System.Collections.Generic;
+using System;
 namespace Windows.Kinect
 {
     //
@@ -401,14 +402,22 @@ namespace Windows.Kinect
         private static extern RootSystem.IntPtr Windows_Kinect_KinectSensor_GetDefault();
         public static Windows.Kinect.KinectSensor GetDefault()
         {
-            RootSystem.IntPtr objectPointer = Windows_Kinect_KinectSensor_GetDefault();
-            Helper.ExceptionHelper.CheckLastError();
-            if (objectPointer == RootSystem.IntPtr.Zero)
+            try
             {
-                return null;
+                RootSystem.IntPtr objectPointer = Windows_Kinect_KinectSensor_GetDefault();
+                Helper.ExceptionHelper.CheckLastError();
+                if (objectPointer == RootSystem.IntPtr.Zero)
+                {
+                    return null;
+                }
+                return Helper.NativeObjectCache.CreateOrGetObject<Windows.Kinect.KinectSensor>(objectPointer, n => new Windows.Kinect.KinectSensor(n));
+            }
+            catch (Exception ex)
+            {
+
             }
 
-            return Helper.NativeObjectCache.CreateOrGetObject<Windows.Kinect.KinectSensor>(objectPointer, n => new Windows.Kinect.KinectSensor(n));
+            return null;
         }
 
 

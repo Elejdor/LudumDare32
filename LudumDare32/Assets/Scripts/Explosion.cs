@@ -11,9 +11,9 @@ public class Explosion : MonoBehaviour {
         {
             StartCoroutine(Explode(col.transform.position));
 
-            desiredTimeScale = 0.4f;
+            desiredTimeScale = 0.1f;
 
-            
+            Debug.Log("asd");
             StartCoroutine(NormalTime());
         }
 
