@@ -11,6 +11,9 @@ public class ShipMovement : MonoBehaviour {
     [SerializeField]
     Vector2 maxLeaps;
 
+    [SerializeField]
+    Vector3 maxForces = Vector3.zero;
+
 	InputWrapper iw;
 
     float sideLeap;
@@ -19,15 +22,13 @@ public class ShipMovement : MonoBehaviour {
     float frontLeap;
     float desiredFrontLeap;
 
-    [SerializeField]
-    Vector3 maxForces = Vector3.zero;
-
 	Rigidbody rb;
 	
 	// Use this for initialization
 	void Start () {
 		rb = this.gameObject.GetComponent<Rigidbody>();
 		iw = InputWrapper.Instance;
+        Debug.Log(iw);
 	}
 	
 	// Update is called once per frame

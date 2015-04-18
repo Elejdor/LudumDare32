@@ -17,7 +17,8 @@ public class InputWrapper : MonoBehaviour {
 	
 	void Awake()
 	{
-		instance = this;
+        if (instance == null)
+		    instance = this;
 		horizontalAxis = 0;
 		verticalAxis = 0;
 	}
@@ -31,6 +32,7 @@ public class InputWrapper : MonoBehaviour {
 	void Update () {
 		horizontalAxis = Input.GetAxisRaw("Horizontal");
 		verticalAxis = Input.GetAxisRaw("Vertical");
+        //Debug.Log(verticalAxis);
 	}
 	
 	#region InputWrappers
