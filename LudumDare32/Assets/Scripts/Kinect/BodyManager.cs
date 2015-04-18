@@ -5,6 +5,9 @@ using Windows.Kinect;
 
 public class BodyManager : MonoBehaviour {
 
+    private BodyManager _instance;
+    public BodyManager intance { get { return _instance; } protected set { _instance = value; } }
+
     private KinectSensor _sensor;
     private BodyFrameReader _bodyFrameReader;
     private Body[] _bodyData;
@@ -15,6 +18,9 @@ public class BodyManager : MonoBehaviour {
 	// Use this for initialization
     void Awake()
     {
+        if (_instance == null) _instance = this;
+        else Destroy(this);
+
         _sensor = KinectSensor.GetDefault();
         if (_sensor != null)
         {
