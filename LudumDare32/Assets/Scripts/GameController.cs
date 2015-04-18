@@ -41,4 +41,16 @@ public class GameController : MonoBehaviour {
     {
         Application.LoadLevel(Application.loadedLevel);
     }
+
+    public void DelayRestartGame(float seconds)
+    {
+        StartCoroutine(WaitAndRestart(seconds));
+    }
+
+
+    IEnumerator WaitAndRestart(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        RestartGame();
+    }
 }

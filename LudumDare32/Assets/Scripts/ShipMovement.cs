@@ -6,7 +6,7 @@ public class ShipMovement : MonoBehaviour {
     Vector3 movementForce = Vector3.zero;
 
     [SerializeField]
-    CameraFollow cameraFollow;
+    public CameraFollow cameraFollow;
 
     [SerializeField]
     GameObject modelPivot;
@@ -31,7 +31,6 @@ public class ShipMovement : MonoBehaviour {
 	void Start () {
 		rb = this.gameObject.GetComponent<Rigidbody>();
 		iw = InputWrapper.Instance;
-        Debug.Log(iw);
 	}
 	
 	// Update is called once per frame

@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Ship : MonoBehaviour {
 
+
     void OnCollisionEnter(Collision col)
     {
         if (col.gameObject.tag == "Wall")
@@ -21,7 +22,10 @@ public class Ship : MonoBehaviour {
 	}
 
     void Die()
-    {
-        GameController.Instance.RestartGame();
+    {        
+        this.GetComponent<ShipMovement>().cameraFollow.Die();
+        GameController.Instance.DelayRestartGame(1);
+        Destroy(this.gameObject);
     }
+
 }
