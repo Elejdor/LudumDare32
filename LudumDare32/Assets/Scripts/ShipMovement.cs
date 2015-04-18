@@ -3,17 +3,25 @@ using System.Collections;
 
 public class ShipMovement : MonoBehaviour {
 
-	Vector3 forceDirection = Vector3.zero;
-	
-	[SerializeField]
-	float maxForce;
-	
-	
-	float horizontalForce;
-	float verticalForce;
+    Vector3 movementForce = Vector3.zero;
+
+    [SerializeField]
+    GameObject modelPivot;
+
+    [SerializeField]
+    Vector2 maxLeaps;
+
 	InputWrapper iw;
-	
-	
+
+    float sideLeap;
+    float desiredSideLeap;
+
+    float frontLeap;
+    float desiredFrontLeap;
+
+    [SerializeField]
+    Vector3 maxForces = Vector3.zero;
+
 	Rigidbody rb;
 	
 	// Use this for initialization
@@ -29,14 +37,27 @@ public class ShipMovement : MonoBehaviour {
 	
 	void HandleMovment()
 	{
-		horizontalForce = iw.HorizontalAxis;
-		verticalForce = iw.VerticalAxis;
-		
-		forceDirection.x = horizontalForce;
-		forceDirection.y = verticalForce;
-		Debug.Log(verticalForce);
-		forceDirection.Normalize();
-		
-		rb.AddForce(forceDirection * (Mathf.Abs(verticalForce) + Mathf.Abs(horizontalForce)) * maxForce);
+        movementForce.x = iw.HorizontalAxis;
+        movementForce.y = iw.VerticalAxis;
+        movementForce.z = iw.Accelerate;
+
+        Leap();
+
+        movementForce.x *= maxForces.x;
+        movementForce.y *= maxForces.y;
+        movementForce.z *= maxForces.z;
+
+        rb.AddForce(movementForce);        
 	}
+
+    /// <summary>
+    /// do it before multiplying by scalars
+    /// </summary>
+    void Leap()
+    {
+        sideLeap = Mathf.Lerp(sideLeap, movementForce.x * maxLeaps.x, 0.3f);
+        frontLeap = Mathf.Lerp(frontLeap, movementForce.y * maxLeaps.y, 0.3f);
+
+        modelPivot.transform.rotation = Quaternion.EulerRotation(-frontLeap, 0, -sideLeap);
+    }
 }
