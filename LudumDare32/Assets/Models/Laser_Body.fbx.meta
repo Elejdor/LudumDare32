@@ -1,17 +1,15 @@
 fileFormatVersion: 2
-guid: 3811ec2daed6e7b48b524a752b85e6e5
-timeCreated: 1429360170
+guid: 889dd08f8662dac438d16223aba64c4c
+timeCreated: 1429367944
 licenseType: Free
 ModelImporter:
   serializedVersion: 18
   fileIDToRecycleName:
     100000: //RootNode
-    100002: default
     400000: //RootNode
-    400002: default
-    2300000: default
-    3300000: default
-    4300000: default
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: Laser_Gun
   materials:
     importMaterials: 1
     materialName: 0

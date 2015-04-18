@@ -48,6 +48,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\CameraFollow.cs" />
      <Compile Include="Assets\Scripts\GameController.cs" />
+     <Compile Include="Assets\Scripts\GenerateVoxelBlock.cs" />
      <Compile Include="Assets\Scripts\InputWrapper.cs" />
      <Compile Include="Assets\Scripts\Kinect\BodyManager.cs" />
      <Compile Include="Assets\Scripts\Ship.cs" />
