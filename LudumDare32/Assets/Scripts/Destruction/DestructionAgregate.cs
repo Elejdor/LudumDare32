@@ -29,7 +29,7 @@ public class DestructionAgregate : MonoBehaviour {
     [SerializeField]
     GameObject prefab;
 
-    List<CubeScript> cubes = new List<CubeScript>();
+    public List<CubeScript> cubes = new List<CubeScript>();
     Queue<CubeScript> remover = new Queue<CubeScript>();
 
     float desiredTimeScale = 1.0f;
@@ -39,7 +39,8 @@ public class DestructionAgregate : MonoBehaviour {
         yield return new WaitForEndOfFrame();
         for (int i = 0; i < transform.childCount; i++)
         {
-            transform.GetChild(0).GetChild(i).GetComponent<Rigidbody>().AddExplosionForce(0.008f, position, 6.0f, 5.0f);
+            if (transform.GetChild(0))
+                transform.GetChild(0).GetChild(i).GetComponent<Rigidbody>().AddExplosionForce(0.008f, position, 6.0f, 5.0f);
         }
     }
 
@@ -74,6 +75,7 @@ public class DestructionAgregate : MonoBehaviour {
 
     public void DestroyInvisibleCubes(Plane[] frustumPlanes)
     {
+
         for (int i = 0; i < cubes.Count; i++)
         {
             if (!cubes[i].destroyed)

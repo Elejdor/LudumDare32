@@ -8,8 +8,6 @@ public class InputWrapper : MonoBehaviour {
 	private float verticalAxis;
 	private static InputWrapper instance;
 
-    private float startY = -100f;
-	
 	public static InputWrapper Instance
 	{
 		get
@@ -42,14 +40,11 @@ public class InputWrapper : MonoBehaviour {
         }
         else if (BodyManager.intance.isKinect && BodyManager.intance.bodyData != null)
         {
-            if (startY == -100f)
-                startY = KinectHandHeight();
-
             float dY = KinectHandDelta().y;
             //dY = Mathf.Clamp(dY, -1f, 1f);
-            horizontalAxis = Mathf.Clamp(dY * dY * dY * 12f, -2f, 2f);
-            verticalAxis = (KinectHandHeight() - startY);
-            verticalAxis = Mathf.Clamp(verticalAxis * verticalAxis * Mathf.Sign(verticalAxis) * 16f, -2f, 2f);
+            horizontalAxis = Mathf.Clamp(dY * 10f, -2f, 2f);
+            verticalAxis = KinectHandHeight();
+            verticalAxis = Mathf.Clamp(Mathf.Pow(verticalAxis + 0.1f, 3) * 40f, -2f, 2f);
         }
     }
 	
@@ -83,8 +78,8 @@ public class InputWrapper : MonoBehaviour {
             }
             else if (BodyManager.intance.isKinect && BodyManager.intance.bodyData != null)
             {
-                Debug.Log(KinectHandDepth());
-                return KinectHandDepth() * 1.5f;
+                float depth = KinectHandDepth();
+                return (Mathf.Pow(depth, 3) + Mathf.Pow(depth, 5)) * 2;
             }
 			return 0;
 		}
@@ -110,12 +105,14 @@ public class InputWrapper : MonoBehaviour {
     {
         Windows.Kinect.CameraSpacePoint leftHand;
         Windows.Kinect.CameraSpacePoint rightHand;
+        Windows.Kinect.CameraSpacePoint shoulderPosition;
         Dictionary<Windows.Kinect.JointType, Windows.Kinect.Joint> joints;
         joints = BodyManager.intance.bodyData[0].Joints;
         leftHand = joints[Windows.Kinect.JointType.HandLeft].Position;
         rightHand = joints[Windows.Kinect.JointType.HandRight].Position;
+        shoulderPosition = joints[Windows.Kinect.JointType.SpineShoulder].Position;
 
-        return (leftHand.Y + rightHand.Y) / 2f;
+        return ((leftHand.Y + rightHand.Y) / 2f) - shoulderPosition.Y;
     }
     protected float KinectHandDepth()
     {
@@ -129,7 +126,7 @@ public class InputWrapper : MonoBehaviour {
         shoulderPosition = joints[Windows.Kinect.JointType.SpineShoulder].Position;
         float value = shoulderPosition.Z - ((leftHand.Z + rightHand.Z) / 2f);
         value -= 0.01f;
-        return value * value * value * 5f;
+        return value;
     }
 	#endregion
 }
