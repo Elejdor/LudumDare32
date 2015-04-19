@@ -13,7 +13,7 @@ public class Ship : MonoBehaviour {
     }
 	// Use this for initialization
 	void Start () {
-	    
+        GameController.Instance.player = this.gameObject;
 	}
 	
 	// Update is called once per frame
