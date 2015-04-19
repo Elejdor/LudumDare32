@@ -3,7 +3,13 @@ using System.Collections;
 
 public class Ship : MonoBehaviour {
 
-    void OnCollisionEnter(Collision col)
+    [SerializeField]
+    GameObject solid;
+    [SerializeField]
+    GameObject parts;
+    DyingEffect de;
+
+    void OnTriggerEnter(Collider col)
     {
         if (col.gameObject.tag == "Wall")
         {
@@ -13,6 +19,8 @@ public class Ship : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         GameController.Instance.player = this.gameObject;
+        de = parts.GetComponent<DyingEffect>();
+        
 	}
 	
 	// Update is called once per frame
@@ -24,7 +32,9 @@ public class Ship : MonoBehaviour {
     {        
         this.GetComponent<ShipMovement>().cameraFollow.Die();
         GameController.Instance.DelayRestartGame(1);
-        Destroy(this.gameObject);
+        parts.SetActive(true);
+        Destroy(solid);
+        de.SetVelocity(this.GetComponent<Rigidbody>().velocity);
     }
 
 }
