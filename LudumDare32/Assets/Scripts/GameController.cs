@@ -9,6 +9,7 @@ public class GameController : MonoBehaviour {
     public int slowMoZones = 0;
     public float desiredTimeSacle = 1.0f;
     public GameObject player;
+    int oldZones = 0;
 
     UnityStandardAssets.ImageEffects.MotionBlur mainMotionBlur;
     ColorCorrectionCurves ccc;
@@ -54,19 +55,21 @@ public class GameController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (slowMoZones == 0)
+        if (slowMoZones == 0 || oldZones > slowMoZones)
         {
             desiredTimeSacle = 1.0f;
             Time.timeScale = Mathf.Lerp(Time.timeScale, desiredTimeSacle, 0.05f);
         }
         else
         {
-            desiredTimeSacle = 1.0f / slowMoZones;
+            desiredTimeSacle = 0.01f / slowMoZones;
             Time.timeScale = Mathf.Lerp(Time.timeScale, desiredTimeSacle, 0.1f);
         }
         ccc.saturation = Time.timeScale;
         //mainMotionBlur.blurAmount = 1-Time.timeScale;
         Time.fixedDeltaTime = 0.01f * Time.timeScale;
+
+        oldZones = slowMoZones;
 	}
 
     public void RestartGame()
