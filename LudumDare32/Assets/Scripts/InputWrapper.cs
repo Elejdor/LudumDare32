@@ -80,7 +80,7 @@ public class InputWrapper : MonoBehaviour {
             {
                 float depth = KinectHandDepth();
 
-                return (Mathf.Pow(depth, 3) + Mathf.Pow(depth, 5)) * 4f;
+                return (Mathf.Pow(depth, 3) + Mathf.Pow(depth, 5)) * 8f;
             }
 			return 0;
 		}
@@ -125,7 +125,21 @@ public class InputWrapper : MonoBehaviour {
         leftHand = joints[Windows.Kinect.JointType.HandLeft].Position;
         rightHand = joints[Windows.Kinect.JointType.HandRight].Position;
         shoulderPosition = joints[Windows.Kinect.JointType.SpineShoulder].Position;
-        float value = shoulderPosition.Z - ((leftHand.Z + rightHand.Z) / 2f);
+
+        Vector3 lh;
+        lh.x = leftHand.X;
+        lh.y = leftHand.Y;
+        lh.z = leftHand.Z;
+        Vector3 rh;
+        rh.x = rightHand.X;
+        rh.y = rightHand.Y;
+        rh.z = rightHand.Z;
+        Vector3 s;
+        s.x = shoulderPosition.X;
+        s.y = shoulderPosition.Y;
+        s.z = shoulderPosition.Z;
+
+        float value = (s - ((lh + rh) / 2f)).magnitude;
         value -= 0.01f;
         return value;
     }
