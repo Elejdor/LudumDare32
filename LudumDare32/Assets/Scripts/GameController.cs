@@ -8,7 +8,7 @@ public class GameController : MonoBehaviour {
 
     public int slowMoZones = 0;
     public float desiredTimeSacle = 1.0f;
-    
+    public GameObject player;
 
     UnityStandardAssets.ImageEffects.MotionBlur mainMotionBlur;
     ColorCorrectionCurves ccc;
@@ -22,23 +22,27 @@ public class GameController : MonoBehaviour {
         }
     }
 
+    void RefreshMembers()
+    {
+        instance.mainMotionBlur = Camera.main.gameObject.GetComponent<UnityStandardAssets.ImageEffects.MotionBlur>();
+        instance.ccc = Camera.main.gameObject.GetComponent<ColorCorrectionCurves>();
+    }
+
     void Awake()
     {
 
         if (!instance)
         {
-            instance = this;
-            instance.mainMotionBlur = Camera.main.gameObject.GetComponent<UnityStandardAssets.ImageEffects.MotionBlur>();
-            instance.ccc = Camera.main.gameObject.GetComponent<ColorCorrectionCurves>();
+            instance = this;            
             DontDestroyOnLoad(this.gameObject);
         }
         else
         {
             instance.mainMotionBlur = Camera.main.gameObject.GetComponent<UnityStandardAssets.ImageEffects.MotionBlur>();
-
-            instance.ccc = Camera.main.gameObject.GetComponent<ColorCorrectionCurves>();
             Destroy(this.gameObject);
         }
+
+        RefreshMembers();
     }
 
 	// Use this for initialization
