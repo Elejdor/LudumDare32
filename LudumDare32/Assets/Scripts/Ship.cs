@@ -3,7 +3,6 @@ using System.Collections;
 
 public class Ship : MonoBehaviour {
 
-
     void OnCollisionEnter(Collision col)
     {
         if (col.gameObject.tag == "Wall")

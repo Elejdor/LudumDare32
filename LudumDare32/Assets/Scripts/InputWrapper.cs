@@ -53,15 +53,15 @@ public class InputWrapper : MonoBehaviour {
 	{
 		get
 		{
-			return horizontalAxis;
+			return 2.0f * horizontalAxis;
 		}
 	}
 	
 	public float VerticalAxis
 	{
 		get
-		{
-			return verticalAxis;
+		{            
+            return 2.0f * verticalAxis;
 		}
 	}
 	
@@ -73,7 +73,7 @@ public class InputWrapper : MonoBehaviour {
             {
                 if (Input.GetKey(KeyCode.Space))
                 {
-                    return 1.0f;
+                    return 2.0f;
                 }
             }
             else if (BodyManager.intance.isKinect && BodyManager.intance.bodyData != null)

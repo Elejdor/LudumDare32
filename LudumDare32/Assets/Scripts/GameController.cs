@@ -26,6 +26,7 @@ public class GameController : MonoBehaviour {
     {
         instance.mainMotionBlur = Camera.main.gameObject.GetComponent<UnityStandardAssets.ImageEffects.MotionBlur>();
         instance.ccc = Camera.main.gameObject.GetComponent<ColorCorrectionCurves>();
+        instance.player = FindObjectOfType<Ship>().gameObject;
     }
 
     void Awake()
@@ -33,16 +34,17 @@ public class GameController : MonoBehaviour {
 
         if (!instance)
         {
-            instance = this;            
+            instance = this;
+            RefreshMembers();
             DontDestroyOnLoad(this.gameObject);
         }
         else
         {
-            instance.mainMotionBlur = Camera.main.gameObject.GetComponent<UnityStandardAssets.ImageEffects.MotionBlur>();
+            RefreshMembers();
             Destroy(this.gameObject);
         }
 
-        RefreshMembers();
+        
     }
 
 	// Use this for initialization
