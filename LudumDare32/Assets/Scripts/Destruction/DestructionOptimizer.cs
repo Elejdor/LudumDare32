@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class DestructionOptimizer : MonoBehaviour {
 
     [SerializeField]
-    DestructionAgregate[] agregates;
+    List<DestructionAgregate> agregates = new List<DestructionAgregate>();
 
     [SerializeField]
     Transform playerTransform;
@@ -14,31 +15,51 @@ public class DestructionOptimizer : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        agregates = FindObjectsOfType<DestructionAgregate>();
+        agregates.AddRange(FindObjectsOfType<DestructionAgregate>());
 	}
 	
 	// Update is called once per frame
 	void Update () {
         frustumPlanes = GeometryUtility.CalculateFrustumPlanes(Camera.main);
         DestructionAgregate currentAgregate;
-        currentIndex %= agregates.Length;
+        currentIndex %= agregates.Count;
 
-	    if (agregates.Length > 0)
+	    if (agregates.Count > 0)
         {
+            bool operationDone = false;
+            int tmpIndex = currentIndex;
 
-            currentAgregate = agregates[currentIndex];
-
-            if (currentAgregate.cubesOn == false)
+            while (!operationDone)
             {
-                if (currentAgregate.IsInRange(playerTransform))
+
+                currentAgregate = agregates[tmpIndex];
+
+                if (currentAgregate.cubesOn == false)
                 {
-                    currentAgregate.TurnOnCubes();
+                    if (currentAgregate.IsInRange(playerTransform))
+                    {
+                        currentAgregate.TurnOnCubes();
+                        operationDone = true;
+                    }
+                    else
+                    {
+                        tmpIndex++;
+                        if (tmpIndex % agregates.Count == 0)
+                            break;
+                    }
+                }
+                else
+                {
+                    currentAgregate.DestroyInvisibleCubes(frustumPlanes);
+                    operationDone = true;
+                    if (currentAgregate.cubes.Count < 100)
+                    {
+                        agregates.Remove(currentAgregate);
+
+                    }
                 }
             }
-            else
-            {
-                currentAgregate.DestroyInvisibleCubes(frustumPlanes);
-            }
+
         }
 
         currentIndex++;

@@ -29,7 +29,7 @@ public class DestructionAgregate : MonoBehaviour {
     [SerializeField]
     GameObject prefab;
 
-    List<CubeScript> cubes = new List<CubeScript>();
+    public List<CubeScript> cubes = new List<CubeScript>();
     Queue<CubeScript> remover = new Queue<CubeScript>();
 
     float desiredTimeScale = 1.0f;
@@ -75,6 +75,7 @@ public class DestructionAgregate : MonoBehaviour {
 
     public void DestroyInvisibleCubes(Plane[] frustumPlanes)
     {
+
         for (int i = 0; i < cubes.Count; i++)
         {
             if (!cubes[i].destroyed)

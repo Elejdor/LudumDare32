@@ -79,7 +79,7 @@ public class InputWrapper : MonoBehaviour {
             else if (BodyManager.intance.isKinect && BodyManager.intance.bodyData != null)
             {
                 float depth = KinectHandDepth();
-                return (Mathf.Pow(depth, 3) + Mathf.Pow(depth, 5)) * 8;
+                return (Mathf.Pow(depth, 3) + Mathf.Pow(depth, 5)) * 2;
             }
 			return 0;
 		}
