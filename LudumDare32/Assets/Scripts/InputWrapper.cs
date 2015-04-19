@@ -42,7 +42,7 @@ public class InputWrapper : MonoBehaviour {
         {
             float dY = KinectHandDelta().y;
             //dY = Mathf.Clamp(dY, -1f, 1f);
-            horizontalAxis = Mathf.Clamp(dY * 10f, -2f, 2f);
+            horizontalAxis = Mathf.Clamp((Mathf.Pow(dY, 2) * Mathf.Sign(dY) + Mathf.Pow(dY, 5)) * 8f, -2f, 2f);
             verticalAxis = KinectHandHeight();
             verticalAxis = Mathf.Clamp(Mathf.Pow(verticalAxis + 0.1f, 3) * 40f, -2f, 2f);
         }
@@ -79,7 +79,8 @@ public class InputWrapper : MonoBehaviour {
             else if (BodyManager.intance.isKinect && BodyManager.intance.bodyData != null)
             {
                 float depth = KinectHandDepth();
-                return (Mathf.Pow(depth, 3) + Mathf.Pow(depth, 5)) * 2;
+
+                return (Mathf.Pow(depth, 3) + Mathf.Pow(depth, 5)) * 4f;
             }
 			return 0;
 		}
