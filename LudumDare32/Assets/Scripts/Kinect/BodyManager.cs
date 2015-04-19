@@ -2,8 +2,10 @@
 using System.Collections;
 
 using Windows.Kinect;
+using System;
 
-public class BodyManager : MonoBehaviour {
+public class BodyManager : MonoBehaviour
+{
 
     private static BodyManager _instance;
     public static BodyManager intance { get { return _instance; } protected set { _instance = value; } }
@@ -14,26 +16,31 @@ public class BodyManager : MonoBehaviour {
 
     public Body[] bodyData { get { return _bodyData; } }
     public bool isKinect { get { return _sensor != null; } }
-    
-	// Use this for initialization
+
+    // Use this for initialization
     void Awake()
     {
         if (_instance == null) _instance = this;
         else Destroy(this);
 
-        _sensor = KinectSensor.GetDefault();
-        if (_sensor != null)
+        if (KinectSensor.CheckLibrary())
         {
-            _bodyFrameReader = _sensor.BodyFrameSource.OpenReader();
+            _sensor = KinectSensor.GetDefault();
+            if (_sensor != null)
+            {
+                _bodyFrameReader = _sensor.BodyFrameSource.OpenReader();
 
-            if (!_sensor.IsOpen)
-                _sensor.Open();
+                if (!_sensor.IsOpen)
+                    _sensor.Open();
+            }
         }
+
     }
-	
-	// Update is called once per frame
-	void Update () {
-	    if(_bodyFrameReader != null)
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (_bodyFrameReader != null)
         {
             using (BodyFrame frame = _bodyFrameReader.AcquireLatestFrame())
             {
@@ -45,7 +52,7 @@ public class BodyManager : MonoBehaviour {
                 }
             }
         }
-	}
+    }
     void OnApplicationQuit()
     {
         if (_bodyFrameReader != null)

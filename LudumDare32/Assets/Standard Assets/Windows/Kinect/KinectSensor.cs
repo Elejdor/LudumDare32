@@ -396,13 +396,20 @@ namespace Windows.Kinect
             }
         }
 
+        [RootSystem.Runtime.InteropServices.DllImport("kernel32", SetLastError = true)]
+        static extern IntPtr LoadLibrary(string lpFileName);
+
+        public static bool CheckLibrary()
+        {
+            return LoadLibrary("KinectUnityAddin") != IntPtr.Zero;
+        }
 
         // Static Methods
         [RootSystem.Runtime.InteropServices.DllImport("KinectUnityAddin", CallingConvention=RootSystem.Runtime.InteropServices.CallingConvention.Cdecl, SetLastError=true)]
         private static extern RootSystem.IntPtr Windows_Kinect_KinectSensor_GetDefault();
         public static Windows.Kinect.KinectSensor GetDefault()
         {
-            try
+            if (CheckLibrary())
             {
                 RootSystem.IntPtr objectPointer = Windows_Kinect_KinectSensor_GetDefault();
                 Helper.ExceptionHelper.CheckLastError();
@@ -411,10 +418,6 @@ namespace Windows.Kinect
                     return null;
                 }
                 return Helper.NativeObjectCache.CreateOrGetObject<Windows.Kinect.KinectSensor>(objectPointer, n => new Windows.Kinect.KinectSensor(n));
-            }
-            catch (Exception ex)
-            {
-
             }
 
             return null;

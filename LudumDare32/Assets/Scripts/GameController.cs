@@ -55,11 +55,11 @@ public class GameController : MonoBehaviour {
         }
         else
         {
-            desiredTimeSacle = 0.5f / slowMoZones;
+            desiredTimeSacle = 1.0f / slowMoZones;
             Time.timeScale = Mathf.Lerp(Time.timeScale, desiredTimeSacle, 0.1f);
         }
         ccc.saturation = Time.timeScale;
-        mainMotionBlur.blurAmount = 1-Time.timeScale;
+        //mainMotionBlur.blurAmount = 1-Time.timeScale;
         Time.fixedDeltaTime = 0.01f * Time.timeScale;
 	}
 
