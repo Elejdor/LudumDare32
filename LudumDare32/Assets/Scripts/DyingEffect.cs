@@ -20,7 +20,7 @@ public class DyingEffect : MonoBehaviour {
     IEnumerator Detach(Vector3 vel)
     {
         yield return new WaitForEndOfFrame();
-        GameController.Instance.slowMoZones = 1;
+        GameController.Instance.slowMoZones = 4;
         foreach (Rigidbody item in GetComponentsInChildren<Rigidbody>())
         {
             item.transform.parent = null;

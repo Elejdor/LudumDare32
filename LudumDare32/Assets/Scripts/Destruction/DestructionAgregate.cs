@@ -113,7 +113,7 @@ public class DestructionAgregate : MonoBehaviour {
             {
                 for (int k = 0; k < z; k++)
                 {
-                    if ((k == z - 1 || k == 0) || (i == x - 1 || i == 0))
+                    if ((k == z - 1 || k == 0) || (i == x - 1 || i == 0) || (j == y - 1 || j == 0))
                     {
                         tmpGo = (GameObject)GameObject.Instantiate(prefab);
                         tmpGo.transform.parent = cubesParent;
