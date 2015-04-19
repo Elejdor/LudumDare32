@@ -401,7 +401,10 @@ namespace Windows.Kinect
 
         public static bool CheckLibrary()
         {
-            return LoadLibrary("KinectUnityAddin") != IntPtr.Zero;
+            bool x86 = LoadLibrary("\\Assets\\Plugins\\x86\\KinectUnityAddin") != IntPtr.Zero;
+            bool x86_65 = LoadLibrary("\\Assets\\Plugins\\x86_64\\KinectUnityAddin") != IntPtr.Zero;
+            bool metro = LoadLibrary("\\Assets\\Plugins\\Metro\\KinectUnityAddin") != IntPtr.Zero;
+            return true;
         }
 
         // Static Methods
