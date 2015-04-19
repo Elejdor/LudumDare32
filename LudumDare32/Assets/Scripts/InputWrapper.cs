@@ -80,7 +80,7 @@ public class InputWrapper : MonoBehaviour {
             {
                 float depth = KinectHandDepth();
 
-                return (Mathf.Pow(depth, 3) + Mathf.Pow(depth, 5)) * 8f;
+                return (Mathf.Pow(depth, 3) + Mathf.Pow(depth * 1.5f, 5)) * 4f;
             }
 			return 0;
 		}
