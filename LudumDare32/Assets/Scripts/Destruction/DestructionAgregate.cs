@@ -7,6 +7,8 @@ public class DestructionAgregate : MonoBehaviour {
     [SerializeField]
     int x;
 
+    bool scored = false;
+
     [SerializeField]
     int y;
 
@@ -51,6 +53,13 @@ public class DestructionAgregate : MonoBehaviour {
             StartCoroutine(Explode(col.transform.position));
 
             GameController.Instance.slowMoZones++;
+            if (!scored)
+            {
+                GameController.Instance.AddPoint();
+                scored = true;
+            }
+            
+            
         }
     }
 

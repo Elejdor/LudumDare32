@@ -5,6 +5,7 @@ using UnityStandardAssets.ImageEffects;
 public class GameController : MonoBehaviour {
 
     private static GameController instance;
+    public int score = 0;
 
     public int slowMoZones = 0;
     public float desiredTimeSacle = 1.0f;
@@ -28,6 +29,8 @@ public class GameController : MonoBehaviour {
         instance.mainMotionBlur = Camera.main.gameObject.GetComponent<UnityStandardAssets.ImageEffects.MotionBlur>();
         instance.ccc = Camera.main.gameObject.GetComponent<ColorCorrectionCurves>();
         instance.player = FindObjectOfType<Ship>().gameObject;
+        score = 0;
+        slowMoZones = 0;
     }
 
     void Awake()
@@ -77,6 +80,11 @@ public class GameController : MonoBehaviour {
         Application.LoadLevel(Application.loadedLevel);
         desiredTimeSacle = 1.0f;
         slowMoZones = 0;
+    }
+
+    public void AddPoint(int n = 1)
+    {
+        score += n;
     }
 
     public void DelayRestartGame(float seconds)
