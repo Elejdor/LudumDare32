@@ -41,7 +41,7 @@ public class InputWrapper : MonoBehaviour {
         else if (BodyManager.intance.isKinect && BodyManager.intance.bodyData != null)
         {
             horizontalAxis = KinectHandDelta();
-            horizontalAxis = Mathf.Clamp((Mathf.Pow(horizontalAxis, 2) * Mathf.Sign(horizontalAxis) + Mathf.Pow(horizontalAxis, 5)) * 2, -2f, 2f);
+            horizontalAxis = Mathf.Clamp((Mathf.Pow(horizontalAxis, 2) * Mathf.Sign(horizontalAxis) + Mathf.Pow(horizontalAxis, 5)) * (2.2f), -2f, 2f);
             verticalAxis = KinectHandHeight();
             verticalAxis = Mathf.Clamp(verticalAxis * 3, -2f, 2f);
         }
@@ -91,7 +91,14 @@ public class InputWrapper : MonoBehaviour {
 
         return false;
     }
-
+    public Vector3 HeadVector()
+    {
+        Windows.Kinect.CameraSpacePoint head;
+        Dictionary<Windows.Kinect.JointType, Windows.Kinect.Joint> joints;
+        joints = BodyManager.intance.bodyData[0].Joints;
+        head = joints[Windows.Kinect.JointType.Head].Position;
+        return new Vector3(head.X, head.Y, head.Z);
+    }
     protected float KinectHandDelta()
     {
         Windows.Kinect.CameraSpacePoint leftHand;
