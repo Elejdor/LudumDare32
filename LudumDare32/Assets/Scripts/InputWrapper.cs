@@ -40,11 +40,10 @@ public class InputWrapper : MonoBehaviour {
         }
         else if (BodyManager.intance.isKinect && BodyManager.intance.bodyData != null)
         {
-            float dY = KinectHandDelta().y;
-            //dY = Mathf.Clamp(dY, -1f, 1f);
-            horizontalAxis = Mathf.Clamp((Mathf.Pow(dY, 2) * Mathf.Sign(dY) + Mathf.Pow(dY, 5)) * 8f, -2f, 2f);
+            horizontalAxis = KinectHandDelta();
+            horizontalAxis = Mathf.Clamp((Mathf.Pow(horizontalAxis, 2) * Mathf.Sign(horizontalAxis) + Mathf.Pow(horizontalAxis, 5)) * 2, -2f, 2f);
             verticalAxis = KinectHandHeight();
-            verticalAxis = Mathf.Clamp(Mathf.Pow(verticalAxis + 0.1f, 3) * 40f, -2f, 2f);
+            verticalAxis = Mathf.Clamp(verticalAxis * 3, -2f, 2f);
         }
     }
 	
@@ -80,27 +79,22 @@ public class InputWrapper : MonoBehaviour {
             {
                 float depth = KinectHandDepth();
 
-                return (Mathf.Pow(depth, 3) + Mathf.Pow(depth * 1.5f, 5)) * 4f;
+                return (depth * 0.01f + Mathf.Pow(depth, 7) * 20);
             }
 			return 0;
 		}
 	}
 
-    protected Vector3 KinectHandDelta()
+    protected float KinectHandDelta()
     {
         Windows.Kinect.CameraSpacePoint leftHand;
         Windows.Kinect.CameraSpacePoint rightHand;
         Dictionary<Windows.Kinect.JointType, Windows.Kinect.Joint> joints;
-        Vector3 delta;
         joints = BodyManager.intance.bodyData[0].Joints;
         leftHand = joints[Windows.Kinect.JointType.HandLeft].Position;
         rightHand = joints[Windows.Kinect.JointType.HandRight].Position;
 
-        delta.x = leftHand.X - rightHand.X;
-        delta.y = leftHand.Y - rightHand.Y;
-        delta.z = leftHand.Z - rightHand.Z;
-
-        return delta;
+        return leftHand.Y - rightHand.Y;;
     }
     protected float KinectHandHeight()
     {
@@ -139,9 +133,16 @@ public class InputWrapper : MonoBehaviour {
         s.y = shoulderPosition.Y;
         s.z = shoulderPosition.Z;
 
-        float value = (s - ((lh + rh) / 2f)).magnitude;
+        float value = Mathf.Max((s - lh).magnitude, (s - rh).magnitude);
         value -= 0.01f;
         return value;
+    }
+    protected bool IsOK()
+    {
+        bool right = BodyManager.intance.bodyData[0].HandRightState.Equals(Windows.Kinect.HandState.Lasso);
+        bool left = BodyManager.intance.bodyData[0].HandLeftState.Equals(Windows.Kinect.HandState.Lasso);
+
+        return right && left;
     }
 	#endregion
 }
