@@ -93,11 +93,15 @@ public class InputWrapper : MonoBehaviour {
     }
     public Vector3 HeadVector()
     {
-        Windows.Kinect.CameraSpacePoint head;
-        Dictionary<Windows.Kinect.JointType, Windows.Kinect.Joint> joints;
-        joints = BodyManager.intance.bodyData[0].Joints;
-        head = joints[Windows.Kinect.JointType.Head].Position;
-        return new Vector3(head.X, head.Y, head.Z);
+        if (BodyManager.intance.isKinect && BodyManager.intance.bodyData != null)
+        {
+            Windows.Kinect.CameraSpacePoint head;
+            Dictionary<Windows.Kinect.JointType, Windows.Kinect.Joint> joints;
+            joints = BodyManager.intance.bodyData[0].Joints;
+            head = joints[Windows.Kinect.JointType.Head].Position;
+            return new Vector3(head.X, head.Y, head.Z);
+        }
+        return Vector3.zero;
     }
     protected float KinectHandDelta()
     {
