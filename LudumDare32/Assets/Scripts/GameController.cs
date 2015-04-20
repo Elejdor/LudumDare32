@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityStandardAssets.ImageEffects;
 
 public class GameController : MonoBehaviour {
@@ -14,6 +15,8 @@ public class GameController : MonoBehaviour {
 
     UnityStandardAssets.ImageEffects.MotionBlur mainMotionBlur;
     ColorCorrectionCurves ccc;
+
+    List<AudioSource> music;
 
     float maxBlur = 1.0f;
     public static GameController Instance
@@ -48,7 +51,7 @@ public class GameController : MonoBehaviour {
             Destroy(this.gameObject);
         }
 
-        
+        music = new List<AudioSource>(GetComponents<AudioSource>());
     }
 
 	// Use this for initialization
@@ -73,6 +76,9 @@ public class GameController : MonoBehaviour {
         Time.fixedDeltaTime = 0.01f * Time.timeScale;
 
         oldZones = slowMoZones;
+
+        foreach (AudioSource audioSource in music)
+            audioSource.pitch = Time.timeScale;
 	}
 
     public void RestartGame()
@@ -85,6 +91,7 @@ public class GameController : MonoBehaviour {
     public void AddPoint(int n = 1)
     {
         score += n;
+        GUIController.instance.UpdateScore(score);
     }
 
     public void DelayRestartGame(float seconds)
