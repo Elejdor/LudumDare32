@@ -41,6 +41,7 @@ public class Ship : MonoBehaviour {
         de.SetVelocity(this.GetComponent<Rigidbody>().velocity);
         dieImage.gameObject.SetActive(true);
         dieImage.sprite = GameController.Instance.RandomSprite();
+        AudioController.instance.PlayDeath();
     }
 
 }
