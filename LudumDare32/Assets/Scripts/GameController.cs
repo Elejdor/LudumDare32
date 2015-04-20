@@ -39,6 +39,7 @@ public class GameController : MonoBehaviour {
         instance.player = FindObjectOfType<Ship>().gameObject;
         score = 0;
         slowMoZones = 0;
+        music = new List<AudioSource>(FindObjectsOfType<AudioSource>());
     }
 
     void Awake()
@@ -68,6 +69,11 @@ public class GameController : MonoBehaviour {
 
     void Update()
     {
+        foreach (AudioSource item in music)
+        {
+            item.volume = 0.5f * Time.timeScale;
+        }
+
         desiredTimeSacle = Mathf.Min(99f, Mathf.Max(desiredTimeSacle, 0f));
         if (slowMoZones < 0)
         {
@@ -81,7 +87,7 @@ public class GameController : MonoBehaviour {
         }
         else
         {
-            desiredTimeSacle = 0.4f / slowMoZones;
+            desiredTimeSacle = 0.8f / slowMoZones;
             Time.timeScale = Mathf.Lerp(Time.timeScale, desiredTimeSacle, 0.3f);
         }
         ccc.saturation = Time.timeScale;
@@ -119,7 +125,7 @@ public class GameController : MonoBehaviour {
 
     IEnumerator WaitAndRestart(float seconds)
     {
-        yield return new WaitForSeconds(0.7f * seconds);
+        yield return new WaitForSeconds(1.3f * seconds);
         
         RestartGame();
     }

@@ -60,7 +60,7 @@ public class InputWrapper : MonoBehaviour {
 	{
 		get
 		{            
-            return 2.0f * verticalAxis;
+            return -2.0f * verticalAxis;
 		}
 	}
 	
@@ -70,7 +70,7 @@ public class InputWrapper : MonoBehaviour {
 		{
             if (!BodyManager.intance.isKinect)
             {
-                if (Input.GetKey(KeyCode.Space))
+                if (Input.GetKey(KeyCode.Space) || Input.GetButton("Fire1"))
                 {
                     return 2.0f;
                 }
@@ -81,12 +81,13 @@ public class InputWrapper : MonoBehaviour {
 
                 return (depth * 0.01f + Mathf.Pow(depth, 7) * 20);
             }
+
 			return 0;
 		}
 	}
     public bool Unpaused()
     {
-        if (Input.GetKeyDown(KeyCode.Space) || IsOK())
+        if (Input.GetKeyDown(KeyCode.Space) || IsOK() || Input.GetButtonUp("Fire1"))
             return true;
 
         return false;
