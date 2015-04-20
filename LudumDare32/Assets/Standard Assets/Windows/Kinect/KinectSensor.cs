@@ -398,7 +398,6 @@ namespace Windows.Kinect
 
         [RootSystem.Runtime.InteropServices.DllImport("kernel32", SetLastError = true)]
         static extern IntPtr LoadLibrary(string lpFileName);
-
         public static bool CheckLibrary()
         {
             bool x86 = LoadLibrary("\\Assets\\Plugins\\x86\\KinectUnityAddin") != IntPtr.Zero;

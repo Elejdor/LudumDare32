@@ -71,8 +71,8 @@ public class ShipMovement : MonoBehaviour {
     /// </summary>
     void Leap()
     {
-        sideLeap = Mathf.Lerp(sideLeap, movementForce.x * maxLeaps.x, 0.3f);
-        frontLeap = Mathf.Lerp(frontLeap, movementForce.y * maxLeaps.y, 0.3f);
+        sideLeap = Mathf.Lerp(sideLeap, movementForce.x * maxLeaps.x, 0.3f * Time.timeScale);
+        frontLeap = Mathf.Lerp(frontLeap, movementForce.y * maxLeaps.y, 0.3f * Time.timeScale);
 
         modelPivot.transform.rotation = Quaternion.EulerRotation(-frontLeap, 0, -sideLeap);
     }
