@@ -31,13 +31,24 @@ public class ShipMovement : MonoBehaviour {
 	void Start () {
 		rb = this.gameObject.GetComponent<Rigidbody>();
 		iw = InputWrapper.Instance;
-	}
+        GameController.Instance.isPlaying = false;
+    }
 	
 	// Update is called once per frame
 	void Update () {
+        if(!GameController.Instance.isPlaying)
+        {
+            HandlePauseInput();
+            return;
+        }
 		HandleMovment();
 	}
 	
+    void HandlePauseInput()
+    {
+        if (iw.Unpaused())
+            GameController.Instance.isPlaying = true;
+    }
 	void HandleMovment()
 	{
         movementForce.x = iw.HorizontalAxis;

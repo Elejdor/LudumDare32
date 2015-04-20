@@ -84,6 +84,13 @@ public class InputWrapper : MonoBehaviour {
 			return 0;
 		}
 	}
+    public bool Unpaused()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) || IsOK())
+            return true;
+
+        return false;
+    }
 
     protected float KinectHandDelta()
     {
@@ -139,10 +146,15 @@ public class InputWrapper : MonoBehaviour {
     }
     protected bool IsOK()
     {
-        bool right = BodyManager.intance.bodyData[0].HandRightState.Equals(Windows.Kinect.HandState.Lasso);
-        bool left = BodyManager.intance.bodyData[0].HandLeftState.Equals(Windows.Kinect.HandState.Lasso);
+        if (BodyManager.intance.isKinect && BodyManager.intance.bodyData != null)
+        {
+            bool right = BodyManager.intance.bodyData[0].HandRightState.Equals(Windows.Kinect.HandState.Lasso);
+            bool left = BodyManager.intance.bodyData[0].HandLeftState.Equals(Windows.Kinect.HandState.Lasso);
 
-        return right && left;
+            return right && left;
+        }
+
+        return false;
     }
 	#endregion
 }
