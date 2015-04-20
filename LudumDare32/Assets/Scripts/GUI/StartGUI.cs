@@ -11,7 +11,7 @@ public class StartGUI : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         image = GetComponent(typeof(Image)) as Image;
-        
+        AudioController.instance.PlayIntro();
 	}
 	
 	// Update is called once per frame

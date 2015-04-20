@@ -104,6 +104,7 @@ public class GameController : MonoBehaviour {
     public void AddPoint(int n = 1)
     {
         score += n;
+        AudioController.instance.PlayCoin();
     }
 
     public Sprite RandomSprite()

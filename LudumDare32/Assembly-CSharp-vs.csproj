@@ -46,6 +46,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\AudioController.cs" />
      <Compile Include="Assets\Scripts\CameraFollow.cs" />
      <Compile Include="Assets\Scripts\Destruction\CubeScript.cs" />
      <Compile Include="Assets\Scripts\Destruction\DestructionAgregate.cs" />
@@ -58,10 +59,12 @@
      <Compile Include="Assets\Scripts\GameController.cs" />
      <Compile Include="Assets\Scripts\InputWrapper.cs" />
      <Compile Include="Assets\Scripts\Kinect\BodyManager.cs" />
+     <Compile Include="Assets\Scripts\PlayScraches.cs" />
      <Compile Include="Assets\Scripts\PlayerFollow.cs" />
      <Compile Include="Assets\Scripts\ScaleChildrenColliders.cs" />
      <Compile Include="Assets\Scripts\Ship.cs" />
      <Compile Include="Assets\Scripts\ShipMovement.cs" />
+     <Compile Include="Assets\Scripts\WallTrigger.cs" />
      <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BlendOneOne.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\NoiseEffectShaderRGB.shader" />

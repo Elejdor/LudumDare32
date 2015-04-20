@@ -43,11 +43,14 @@ public class ShipMovement : MonoBehaviour {
         }
 		HandleMovment();
 	}
-	
+
     void HandlePauseInput()
     {
         if (iw.Unpaused())
+        {
             GameController.Instance.isPlaying = true;
+            AudioController.instance.PlayFirst();
+        }
     }
 	void HandleMovment()
 	{
