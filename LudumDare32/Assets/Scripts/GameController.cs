@@ -102,7 +102,7 @@ public class GameController : MonoBehaviour {
 
     IEnumerator WaitAndRestart(float seconds)
     {
-        yield return new WaitForSeconds(0.3f * seconds);
+        yield return new WaitForSeconds(0.7f * seconds);
         
         RestartGame();
     }

@@ -51,8 +51,8 @@ public class ShipMovement : MonoBehaviour {
         movementForce.y *= maxForces.y;
         movementForce.z *= maxForces.z;
 
-        rb.AddForce(movementForce);
-
+        //rb.AddForce(movementForce);// * Time.deltaTime * 25);
+        rb.AddForce(movementForce * Time.deltaTime * 40);
 	}
 
     /// <summary>
