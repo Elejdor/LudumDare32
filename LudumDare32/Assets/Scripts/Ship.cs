@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class Ship : MonoBehaviour {
@@ -7,7 +8,10 @@ public class Ship : MonoBehaviour {
     GameObject solid;
     [SerializeField]
     GameObject parts;
+
     DyingEffect de;
+
+    public Image dieImage;
 
     void OnTriggerEnter(Collider col)
     {
@@ -35,6 +39,8 @@ public class Ship : MonoBehaviour {
         parts.SetActive(true);
         Destroy(solid);
         de.SetVelocity(this.GetComponent<Rigidbody>().velocity);
+        dieImage.gameObject.SetActive(true);
+        dieImage.sprite = GameController.Instance.RandomSprite();
     }
 
 }

@@ -15,7 +15,7 @@ public class BodyManager : MonoBehaviour
     private Body[] _bodyData;
 
     public Body[] bodyData { get { return _bodyData; } }
-    public bool isKinect { get { return _sensor != null; } }
+    public bool isKinect { get { return _sensor != null && _sensor.IsAvailable; } }
 
     // Use this for initialization
     void Awake()

@@ -11,6 +11,11 @@ public class GameController : MonoBehaviour {
     public int slowMoZones = 0;
     public float desiredTimeSacle = 1.0f;
     public GameObject player;
+
+    public bool isPlaying = false;
+
+    public Sprite[] deadScreen;
+
     int oldZones = 0;
 
     UnityStandardAssets.ImageEffects.MotionBlur mainMotionBlur;
@@ -91,14 +96,17 @@ public class GameController : MonoBehaviour {
     public void AddPoint(int n = 1)
     {
         score += n;
-        GUIController.instance.UpdateScore(score);
+    }
+
+    public Sprite RandomSprite()
+    {
+        return deadScreen[Random.Range(0, deadScreen.Length)];
     }
 
     public void DelayRestartGame(float seconds)
     {
         StartCoroutine(WaitAndRestart(seconds));
     }
-
 
     IEnumerator WaitAndRestart(float seconds)
     {
