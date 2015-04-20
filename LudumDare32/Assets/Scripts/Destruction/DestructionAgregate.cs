@@ -17,6 +17,8 @@ public class DestructionAgregate : MonoBehaviour {
 
     [SerializeField]
     float mass;
+
+    [SerializeField]
     float size;
 
     [SerializeField]
@@ -113,7 +115,7 @@ public class DestructionAgregate : MonoBehaviour {
 
     void GenerateCubes()
     {
-        size = prefab.transform.localScale.x;
+        //size = prefab.transform.localScale.x;
         GameObject tmpGo;
         cubesParent.gameObject.SetActive(false);
         for (int i = 0; i < x; i++)
@@ -125,8 +127,13 @@ public class DestructionAgregate : MonoBehaviour {
                     if ((k == z - 1 || k == 0) || (i == x - 1 || i == 0) || (j == y - 1 || j == 0))
                     {
                         tmpGo = (GameObject)GameObject.Instantiate(prefab);
+                        tmpGo.transform.localScale = new Vector3(size, size, size);
                         tmpGo.transform.parent = cubesParent;
-                        tmpGo.transform.localPosition = new Vector3(i * size - size, j * size - size, k * size - size);
+                        tmpGo.transform.localRotation = cubesParent.localRotation;
+                        tmpGo.transform.localPosition = new Vector3(
+                             (i * size - size), 
+                             (j * size - size), 
+                             ( k * size - size));
                         tmpGo.GetComponent<Rigidbody>().mass = mass;
                         cubes.Add(tmpGo.GetComponent<CubeScript>());
                     }
