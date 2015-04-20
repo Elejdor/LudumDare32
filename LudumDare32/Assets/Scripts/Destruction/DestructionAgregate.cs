@@ -54,7 +54,13 @@ public class DestructionAgregate : MonoBehaviour {
         {
             StartCoroutine(Explode(col.transform.position));
 
-            GameController.Instance.slowMoZones++;
+            if(BodyManager.intance.isKinect)
+                GameController.Instance.slowMoZones += 0.256f;
+            else
+                GameController.Instance.slowMoZones++;
+
+            GameController.Instance.slowMoZones = Mathf.Min(GameController.Instance.slowMoZones, 100f);
+
             if (!scored)
             {
                 GameController.Instance.AddPoint();
@@ -69,7 +75,12 @@ public class DestructionAgregate : MonoBehaviour {
     {
         if (col.gameObject.tag == "Player")
         {
-            GameController.Instance.slowMoZones--;
+            if (BodyManager.intance.isKinect)
+                GameController.Instance.slowMoZones -= 0.256f;
+            else
+                GameController.Instance.slowMoZones--;
+
+            GameController.Instance.slowMoZones = Mathf.Max(GameController.Instance.slowMoZones, 0f);
         }
     }
 

@@ -8,7 +8,7 @@ public class GameController : MonoBehaviour {
     private static GameController instance;
     public int score = 0;
 
-    public int slowMoZones = 0;
+    public float slowMoZones = 0;
     public float desiredTimeSacle = 1.0f;
     public GameObject player;
 
@@ -16,7 +16,7 @@ public class GameController : MonoBehaviour {
 
     public Sprite[] deadScreen;
 
-    int oldZones = 0;
+    float oldZones = 0;
 
     UnityStandardAssets.ImageEffects.MotionBlur mainMotionBlur;
     ColorCorrectionCurves ccc;
@@ -65,7 +65,15 @@ public class GameController : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+
+    void Update()
+    {
+        desiredTimeSacle = Mathf.Min(99f, Mathf.Max(desiredTimeSacle, 0f));
+        if (slowMoZones < 0)
+        {
+            slowMoZones = 0;
+        }
+
         if (slowMoZones == 0 || oldZones > slowMoZones)
         {
             desiredTimeSacle = 1.0f;
