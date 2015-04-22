@@ -71,9 +71,9 @@ public class AudioController : MonoBehaviour {
     {
         if (!playSounds)
             return;
-        audioSourceAmbient.Stop();
-        audioSourceFast.clip = death;
-        audioSourceFast.Play();
+        //audioSourceAmbient.Stop();
+        //audioSourceFast.clip = death;
+        //audioSourceFast.Play();
     }
     public void PlayCoin()
     {
