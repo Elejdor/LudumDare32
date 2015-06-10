@@ -12,6 +12,8 @@ public class GameController : MonoBehaviour {
     public float desiredTimeSacle = 1.0f;
     public GameObject player;
 
+    public List<Transform> lvls = new List<Transform>();
+
     public bool isPlaying = false;
 
     public Sprite[] deadScreen;
@@ -20,6 +22,8 @@ public class GameController : MonoBehaviour {
     public GameObject lvl2;
 
     float oldZones = 0;
+
+    float oldZ;
 
     UnityStandardAssets.ImageEffects.MotionBlur mainMotionBlur;
     ColorCorrectionCurves ccc;
@@ -61,6 +65,7 @@ public class GameController : MonoBehaviour {
         }
 
         music = new List<AudioSource>(GetComponents<AudioSource>());
+        oldZ = player.transform.position.z;
     }
 
 	// Use this for initialization
@@ -72,6 +77,17 @@ public class GameController : MonoBehaviour {
 
     void Update()
     {
+
+        float diffZ = player.transform.position.z - oldZ;
+
+        player.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z - diffZ);
+        foreach (Transform t in lvls)
+        {
+            if(t != null)
+                t.position = new Vector3(t.position.x, t.position.y, t.position.z - diffZ);
+        }
+        oldZ = player.transform.position.z;
+
         foreach (AudioSource item in music)
         {
             item.volume = 0.5f * Time.timeScale;

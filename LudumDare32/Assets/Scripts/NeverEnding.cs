@@ -15,6 +15,7 @@ public class NeverEnding : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         childCount = transform.childCount;
+        GameController.Instance.lvls.Add(transform);
 	}
 	
 	// Update is called once per frame
@@ -31,6 +32,8 @@ public class NeverEnding : MonoBehaviour {
 
     void OnTriggerEnter(Collider col)
     {
+        GameController.Instance.lvls.Remove(transform);
+
         Destroy(gameObject);
         if (lvl1)
             GameObject.Instantiate(GameController.Instance.lvl1, nextPosition.position, GameController.Instance.lvl1.transform.rotation);
