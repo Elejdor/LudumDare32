@@ -8,7 +8,7 @@ public class DestructionAgregate : MonoBehaviour {
     int x;
 
     bool scored = false;
-
+    Vector2 center2d;
     [SerializeField]
     int y;
 
@@ -60,7 +60,11 @@ public class DestructionAgregate : MonoBehaviour {
 
             if (!scored)
             {
-                GameController.Instance.AddPoint();
+                Vector2 playerXY = GameController.Instance.player.transform.position;
+                Debug.Log("Player: " + playerXY.ToString() + " Cubes: " + center2d.ToString());
+                float points = (30 - (playerXY - center2d).sqrMagnitude);
+                Debug.Log(points);
+                GameController.Instance.AddPoint((int)(points));
                 scored = true;
             }
             
@@ -84,6 +88,7 @@ public class DestructionAgregate : MonoBehaviour {
         cubesOn = false;
         GenerateCubes();
         col = this.GetComponent<Collider>();
+        center2d = transform.FindChild("Solid").transform.position;
 	}
 	
 	// Update is called once per frame

@@ -20,6 +20,7 @@ public class GameController : MonoBehaviour {
 
     public GameObject lvl1;
     public GameObject lvl2;
+    GUIController gui;
 
     public TimeGUI tg;
     public float speed = 40f;
@@ -49,7 +50,7 @@ public class GameController : MonoBehaviour {
         instance.player = FindObjectOfType<Ship>().gameObject;
         score = 0;
         slowMoZones = 0;
-        music = new List<AudioSource>(FindObjectsOfType<AudioSource>());
+        gui = FindObjectOfType<GUIController>();
     }
 
     void Awake()
@@ -63,7 +64,7 @@ public class GameController : MonoBehaviour {
         }
         else
         {
-            RefreshMembers();
+            instance.RefreshMembers();
             Destroy(this.gameObject);
         }
 
@@ -129,10 +130,11 @@ public class GameController : MonoBehaviour {
         slowMoZones = 0;
     }
 
-    public void AddPoint(int n = 1)
+    public void AddPoint(int n)
     {
         score += n;
         AudioController.instance.PlayCoin();
+        gui.UpdateScore(n);
     }
 
     public Sprite RandomSprite()

@@ -4,20 +4,17 @@ using UnityEngine.UI;
 
 public class GUIController : MonoBehaviour {
 
-    private static GUIController _instance;
-    public static GUIController instance { get { return _instance; } set { _instance = value; } }
+
+
+    float displayedScore = 0;
+    int desiredScore = 0;
 
     [SerializeField]
     Text scoreText;
-    [SerializeField]
-    Text timeText;
+
 
     void Awake()
     {
-        if (_instance == null)
-            _instance = this;
-        else
-            Destroy(this);
     }
 	// Use this for initialization
 	void Start () {
@@ -26,12 +23,18 @@ public class GUIController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        float time = float.Parse(timeText.text);
-        time -= Time.deltaTime;
-        timeText.text = time.ToString();
+        scoreText.text = ((int)displayedScore).ToString();
+        displayedScore = Mathf.Lerp(displayedScore, desiredScore, 0.3f);
 	}
-    public void UpdateScore(int points)
+
+    public void UpdateScore(int addPoints)
     {
-        scoreText.text = points.ToString();
+        desiredScore = GameController.Instance.score;
+    }
+
+    IEnumerator WaitAndAddScore()
+    {
+        yield return new WaitForSeconds(1);
+        scoreText.text = GameController.Instance.score.ToString();
     }
 }
