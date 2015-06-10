@@ -17,7 +17,7 @@ public class CubeScript : MonoBehaviour {
 
     public void DestroyIfInvisible(ref Plane[] frustumPlanes)
     {        
-        if (!GeometryUtility.TestPlanesAABB(frustumPlanes, col.bounds))
+        if (frustumPlanes.Length > 0 && col != null && !GeometryUtility.TestPlanesAABB(frustumPlanes, col.bounds))
         {
             destroyed = true;
             Destroy(this.gameObject);

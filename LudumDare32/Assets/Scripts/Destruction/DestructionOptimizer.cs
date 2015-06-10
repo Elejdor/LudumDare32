@@ -4,8 +4,7 @@ using System.Collections.Generic;
 
 public class DestructionOptimizer : MonoBehaviour {
 
-    [SerializeField]
-    DestructionAgregate[] agregates;
+    static public List<DestructionAgregate> agregates = new List<DestructionAgregate>();
 
     [SerializeField]
     Transform playerTransform;
@@ -15,26 +14,26 @@ public class DestructionOptimizer : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        agregates = FindObjectsOfType<DestructionAgregate>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
         frustumPlanes = GeometryUtility.CalculateFrustumPlanes(Camera.main);
         DestructionAgregate currentAgregate;
-        currentIndex %= agregates.Length;
+        currentIndex %= agregates.Count;
 
         foreach (DestructionAgregate item in agregates)
         {
 
+            if (item == null) continue;
             if (item.IsInRange(playerTransform) && item.cubesOn == false)
             {
                 item.TurnOnCubes();
             }
         }
 
-        
-	    if (agregates.Length > 0)
+
+        if (frustumPlanes.Length > 0 && agregates.Count > 0)
         {
             if (agregates[currentIndex].cubesOn)
                 agregates[currentIndex].DestroyInvisibleCubes(ref frustumPlanes);            
@@ -42,4 +41,13 @@ public class DestructionOptimizer : MonoBehaviour {
 
         currentIndex++;
 	}
+
+    static public void AddDA(DestructionAgregate da)
+    {
+        agregates.Add(da);
+    }
+    static public void RemoveDA(DestructionAgregate da)
+    {
+        agregates.Remove(da);
+    }
 }

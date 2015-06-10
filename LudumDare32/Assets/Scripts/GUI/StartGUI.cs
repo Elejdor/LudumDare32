@@ -17,10 +17,7 @@ public class StartGUI : MonoBehaviour {
 	// Update is called once per frame
     void Update()
     {
-        if (BodyManager.intance.isKinect)
-            image.sprite = kinect;
-        else
-            image.sprite = keyboard;
+        image.sprite = keyboard;
         if (GameController.Instance.isPlaying)
         {
             image.gameObject.SetActive(false);

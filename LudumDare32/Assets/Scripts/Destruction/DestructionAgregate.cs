@@ -54,10 +54,7 @@ public class DestructionAgregate : MonoBehaviour {
         {
             StartCoroutine(Explode(col.transform.position));
 
-            if(BodyManager.intance.isKinect)
-                GameController.Instance.slowMoZones += 0.256f;
-            else
-                GameController.Instance.slowMoZones++;
+            GameController.Instance.slowMoZones++;
 
             GameController.Instance.slowMoZones = Mathf.Min(GameController.Instance.slowMoZones, 100f);
 
@@ -75,10 +72,7 @@ public class DestructionAgregate : MonoBehaviour {
     {
         if (col.gameObject.tag == "Player")
         {
-            if (BodyManager.intance.isKinect)
-                GameController.Instance.slowMoZones -= 0.256f;
-            else
-                GameController.Instance.slowMoZones--;
+            GameController.Instance.slowMoZones--;
 
             GameController.Instance.slowMoZones = Mathf.Max(GameController.Instance.slowMoZones, 0f);
         }
@@ -86,6 +80,7 @@ public class DestructionAgregate : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        DestructionOptimizer.AddDA(this);
         cubesOn = false;
         GenerateCubes();
         col = this.GetComponent<Collider>();
@@ -109,6 +104,8 @@ public class DestructionAgregate : MonoBehaviour {
         {            
             cubes.Remove(remover.Dequeue());
         }
+
+        if (cubes.Count == 0) DestructionOptimizer.RemoveDA(this);
     }
     
 

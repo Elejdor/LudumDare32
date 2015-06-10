@@ -16,6 +16,9 @@ public class GameController : MonoBehaviour {
 
     public Sprite[] deadScreen;
 
+    public GameObject lvl1;
+    public GameObject lvl2;
+
     float oldZones = 0;
 
     UnityStandardAssets.ImageEffects.MotionBlur mainMotionBlur;

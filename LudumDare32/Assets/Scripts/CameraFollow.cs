@@ -37,10 +37,6 @@ public class CameraFollow : MonoBehaviour {
 
             speedOffset = Vector3.Lerp(speedOffset, desiredSpeedOffset, 0.05f);
             this.transform.position = offset - speedOffset + target.transform.position;
-            Vector3 headOffset = InputWrapper.Instance.HeadVector();
-            headOffset.z = 0f;
-            this.transform.position += headOffset * 8;
-            this.transform.LookAt(GameController.Instance.player.transform);
         }
         else
         {
