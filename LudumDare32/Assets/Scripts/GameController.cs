@@ -21,6 +21,9 @@ public class GameController : MonoBehaviour {
     public GameObject lvl1;
     public GameObject lvl2;
 
+    public TimeGUI tg;
+    public float speed = 40f;
+
     float oldZones = 0;
 
     float oldZ;

@@ -25,6 +25,9 @@ public class ShipMovement : MonoBehaviour {
     float frontLeap;
     float desiredFrontLeap;
 
+    float startSpeed = 2f;
+    float speed = 0f;
+
 	Rigidbody rb;
 	
 	// Use this for initialization
@@ -36,6 +39,12 @@ public class ShipMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+        if (GameController.Instance.tg != null)
+            speed = startSpeed + GameController.Instance.tg.t * 0.05f;
+        else
+            speed = 0f;
+
         if(!GameController.Instance.isPlaying)
         {
             HandlePauseInput();
@@ -54,9 +63,9 @@ public class ShipMovement : MonoBehaviour {
     }
 	void HandleMovment()
 	{
-        movementForce.x = iw.HorizontalAxis;
-        movementForce.y = iw.VerticalAxis;
-        movementForce.z = iw.Accelerate;
+        movementForce.x = iw.HorizontalAxis * speed * 0.5f;
+        movementForce.y = iw.VerticalAxis   * speed * 0.5f;
+        movementForce.z = speed;
 
         Leap();
         cameraFollow.SetVelocityPercentage(movementForce);

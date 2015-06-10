@@ -41,7 +41,7 @@ public class InputWrapper : MonoBehaviour {
 	{
 		get
 		{
-			return 2.0f * horizontalAxis;
+			return horizontalAxis;
 		}
 	}
 	
@@ -49,7 +49,7 @@ public class InputWrapper : MonoBehaviour {
 	{
 		get
 		{            
-            return -2.0f * verticalAxis;
+            return -verticalAxis;
 		}
 	}
 	
