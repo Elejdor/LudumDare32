@@ -4,8 +4,7 @@ using System.Collections;
 
 public class TimeGUI : MonoBehaviour {
 
-    [HideInInspector]
-    public float t = 0f;
+    public float t = 60f;
 
     Text time;
 	// Use this for initialization
@@ -18,7 +17,17 @@ public class TimeGUI : MonoBehaviour {
 	void Update () {
         if (!GameController.Instance.isPlaying) return;
 
-        t += Time.deltaTime;
+        if (t <= 0f)
+        {
+            time.text = 0.ToString();
+
+            //DO SOMETHNG!!
+            GameController.Instance.DelayRestartGame(2f);
+        }
+
+        t -= Time.deltaTime;
         time.text = ((int)t).ToString();
+
+        
 	}
 }

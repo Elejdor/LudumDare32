@@ -41,7 +41,7 @@ public class InputWrapper : MonoBehaviour {
 	{
 		get
 		{
-			return horizontalAxis;
+			return 2f * horizontalAxis;
 		}
 	}
 	
@@ -49,7 +49,7 @@ public class InputWrapper : MonoBehaviour {
 	{
 		get
 		{            
-            return -verticalAxis;
+            return -2f * verticalAxis;
 		}
 	}
 	
@@ -57,12 +57,12 @@ public class InputWrapper : MonoBehaviour {
 	{
 		get
 		{
-            if (Input.GetKey(KeyCode.Space) || Input.GetButton("Fire1"))
-            {
+            //if (Input.GetKey(KeyCode.Space) || Input.GetButton("Fire1"))
+            //{
                 return 2.0f;
-            }
+            //}
 
-			return 0;
+			//return 0;
 		}
 	}
     public bool Unpaused()

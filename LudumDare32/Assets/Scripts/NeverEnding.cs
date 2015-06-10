@@ -20,12 +20,14 @@ public class NeverEnding : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        ++frameCount;
+
+        GameObject child;
         if (!wakeUpChild) return;
-        if (frameCount % 10 != 0) return;
+        ++frameCount;
+        if (frameCount % 20 != 0) return;
 
         if (i >= childCount) { wakeUpChild = false; return; }
-        GameObject child = transform.GetChild(i).gameObject;
+        child = transform.GetChild(i).gameObject;
         child.SetActive(true);
         ++i;
 	}
@@ -33,8 +35,7 @@ public class NeverEnding : MonoBehaviour {
     void OnTriggerEnter(Collider col)
     {
         GameController.Instance.lvls.Remove(transform);
-
-        Destroy(gameObject);
+        Destroy(gameObject); 
         if (lvl1)
             GameObject.Instantiate(GameController.Instance.lvl1, nextPosition.position, GameController.Instance.lvl1.transform.rotation);
         else
