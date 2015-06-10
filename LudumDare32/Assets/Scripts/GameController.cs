@@ -134,7 +134,7 @@ public class GameController : MonoBehaviour {
     {
         score += n;
         AudioController.instance.PlayCoin();
-        gui.UpdateScore(n);
+        //gui.UpdateScore(n);
     }
 
     public Sprite RandomSprite()

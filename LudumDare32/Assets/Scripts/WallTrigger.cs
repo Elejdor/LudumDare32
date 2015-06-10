@@ -3,6 +3,7 @@ using System.Collections;
 
 public class WallTrigger : MonoBehaviour {
 
+    public bool first;
 	// Use this for initialization
 	void Start () {
 	
@@ -15,6 +16,9 @@ public class WallTrigger : MonoBehaviour {
 
     void OnTriggerEnter(Collider collider)
     {
-        AudioController.instance.PlaySecond();
+        if (first)
+            AudioController.instance.PlaySecond();
+        else
+            AudioController.instance.PlayFirst();
     }
 }
