@@ -55,15 +55,12 @@ public class DestructionAgregate : MonoBehaviour {
             StartCoroutine(Explode(col.transform.position));
 
             GameController.Instance.slowMoZones++;
-
-            GameController.Instance.slowMoZones = Mathf.Min(GameController.Instance.slowMoZones, 100f);
+            GameController.Instance.slowMoZones = Mathf.Min(GameController.Instance.slowMoZones, 4f);
 
             if (!scored)
             {
                 Vector2 playerXY = GameController.Instance.player.transform.position;
-                Debug.Log("Player: " + playerXY.ToString() + " Cubes: " + center2d.ToString());
                 float points = (30 - (playerXY - center2d).sqrMagnitude);
-                Debug.Log(points);
                 GameController.Instance.AddPoint((int)(points));
                 scored = true;
             }
