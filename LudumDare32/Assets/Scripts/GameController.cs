@@ -81,7 +81,7 @@ public class GameController : MonoBehaviour {
 
     void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.R)) DelayRestartGame(0f);
         float diffZ = player.transform.position.z - oldZ;
 
         player.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z - diffZ);

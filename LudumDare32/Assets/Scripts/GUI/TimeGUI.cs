@@ -20,10 +20,11 @@ public class TimeGUI : MonoBehaviour {
         if (t <= 0f)
         {
             time.text = 0.ToString();
+            Time.timeScale = 0f;
 
             //DO SOMETHNG!!
-            GameController.Instance.DelayRestartGame(0f);
-            t = 120f;
+            //GameController.Instance.DelayRestartGame(0f);
+            //t = 120f;
             return;
         }
 

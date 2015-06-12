@@ -35,7 +35,7 @@ public class Ship : MonoBehaviour {
     void Die()
     {        
         this.GetComponent<ShipMovement>().cameraFollow.Die();
-        GameController.Instance.DelayRestartGame(1);
+        //GameController.Instance.DelayRestartGame(1);
         parts.SetActive(true);
         Destroy(solid);
         de.SetVelocity(this.GetComponent<Rigidbody>().velocity);
