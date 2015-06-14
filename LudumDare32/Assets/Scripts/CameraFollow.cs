@@ -24,7 +24,19 @@ public class CameraFollow : MonoBehaviour {
 	
     void FixedUpdate()
     {
-        
+        if (!dead)
+        {
+            desiredSpeedOffset.x = velocityPercentages.x * maxOffsets.x;
+            desiredSpeedOffset.y = velocityPercentages.y * maxOffsets.y;
+            desiredSpeedOffset.z = velocityPercentages.z * maxOffsets.z;
+
+            speedOffset = Vector3.Lerp(speedOffset, desiredSpeedOffset, 0.05f);
+            this.transform.position = offset - speedOffset + target.transform.position;
+        }
+        else
+        {
+            this.transform.Translate(new Vector3(0, 0, 2.0f * Time.deltaTime));
+        }
     }
 
 	// Update is called once per frame
